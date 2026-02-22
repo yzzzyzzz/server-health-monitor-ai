@@ -1,9 +1,19 @@
 import shutil
 import os
+import sys
 import requests  # 記得要 pip install requests
 import logging
 from datetime import datetime
 from typing import Dict, Tuple, Optional
+
+# 設定 Windows 終端機編碼（解決 emoji 顯示問題）
+if sys.platform == 'win32':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+        sys.stderr.reconfigure(encoding='utf-8')
+    except AttributeError:
+        # Python < 3.7 不支援 reconfigure
+        pass
 
 # 設定日誌
 logging.basicConfig(
@@ -169,7 +179,7 @@ def main():
         send_line_notify(full_report)
     else:
         logger.info("系統狀態正常")
-        print("\n✅ 系統狀態正常")
+        print("\n[OK] 系統狀態正常")
 
 if __name__ == "__main__":
     main()
